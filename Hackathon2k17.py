@@ -59,17 +59,46 @@ for i in range(len(x)):
     m.plot(x[i],y[i],'ro',markersize=20, alpha=mydata.Murder[i] )
 
 
-# In[103]:
+# In[116]:
 
 m1=Basemap(projection='mill',llcrnrlat=ndata.Dislat.min()-2,urcrnrlat=ndata.Dislat.max()+2,llcrnrlon=ndata.Dislong.min()-2,urcrnrlon=ndata.Dislong.max()+2,resolution='c',epsg=4269)
 x,y=m(tuple(ndata.Dislong),tuple(ndata.Dislat))
 
 
-# In[105]:
+# In[117]:
 
 plt.figure(figsize=(20,10))
 m.arcgisimage(service="NatGeo_World_Map", verbose=True)
 m.plot(x,y,'ro',markersize=5, alpha=0.3 )
+
+
+# In[121]:
+
+color = np.random.rand(ndata["States/UTs"].unique().shape[0], 3)
+plt.figure(figsize=(20,10))
+m1=Basemap(projection='mill',llcrnrlat=mydata.lat.min()-2,urcrnrlat=mydata.lat.max()+2,llcrnrlon=mydata.long.min()-2,urcrnrlon=mydata.long.max()+2,resolution='c',epsg=4269)
+m1.arcgisimage(service="NatGeo_World_Map", verbose=True)
+c = 0
+for i in ndata["States/UTs"].unique():
+    x1, y1 = m(tuple(ndata.Dislong[(ndata["States/UTs"] == i)]), 
+         tuple(ndata.Dislat[(ndata["States/UTs"] == i)]))
+    m1.plot(x1,y1,'ro',markersize=5,alpha=0.9, color = color[c] )
+    c += 1
+
+
+# In[149]:
+
+mydata1=ndata.groupby(['States/UTs'])['Murder','Rape','Kidnapping & Abduction_Total','Attempt to commit Rape','Dacoity'].sum()
+
+
+# In[151]:
+
+mydata1.transpose().loc[:,["Andhra Pradesh","Bihar","Delhi"]].plot(kind='pie',subplots=True)
+
+
+# In[ ]:
+
+
 
 
 # In[ ]:
