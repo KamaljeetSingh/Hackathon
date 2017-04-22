@@ -37,9 +37,10 @@ import matplotlib.pyplot as plt
 df.loc[:,"TOTAL"].plot(kind="bar" ,figsize=(10,10))
 
 
-# In[33]:
+# In[37]:
 
 newmerge = pd.merge(g1,df,on="States/UTs",how="left",sort=False)
-newmerge.loc[:,["Total Cognizable IPC crimes","TOTAL"]].plot(kind="bar" ,figsize=(10,10))
+n=newmerge.set_index('States/UTs')
+n.loc[:,["Total Cognizable IPC crimes","TOTAL"]].plot(kind="bar" ,figsize=(10,10))
 plt.title("Crime Rate Vs Police Force")
 
