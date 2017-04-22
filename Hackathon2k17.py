@@ -32,31 +32,31 @@ mydata=ndata.groupby(['States/UTs'])['Murder','Rape'].sum()
 mydata.plot(kind='bar',stacked=True)
 
 
-# In[81]:
+# In[155]:
 
-mydata=ndata.groupby(['States/UTs'])["lat","long","Murder"].mean()
+mydata=ndata.groupby(['States/UTs'])["lat","long","Rape"].mean()
 mydata
 
 
-# In[92]:
+# In[156]:
 
 from mpl_toolkits.basemap import Basemap
 m=Basemap(projection='mill',llcrnrlat=mydata.lat.min()-2,urcrnrlat=mydata.lat.max()+2,llcrnrlon=mydata.long.min()-2,urcrnrlon=mydata.long.max()+2,resolution='c',epsg=4269)
 x,y=m(tuple(mydata.long),tuple(mydata.lat))
 
 
-# In[99]:
+# In[158]:
 
 for i in range(36):
-    mydata.Murder[i]=mydata.Murder[i]/(mydata.Murder.max())
+    mydata.Rape[i]=mydata.Rape[i]/(mydata.Rape.max())
 
 
-# In[101]:
+# In[159]:
 
 plt.figure(figsize=(20,10))
 m.arcgisimage(service="NatGeo_World_Map", verbose=True)
 for i in range(len(x)):
-    m.plot(x[i],y[i],'ro',markersize=20, alpha=mydata.Murder[i] )
+    m.plot(x[i],y[i],'ro',markersize=20, alpha=mydata.Rape[i] )
 
 
 # In[116]:
@@ -91,9 +91,9 @@ for i in ndata["States/UTs"].unique():
 mydata1=ndata.groupby(['States/UTs'])['Murder','Rape','Kidnapping & Abduction_Total','Attempt to commit Rape','Dacoity'].sum()
 
 
-# In[151]:
+# In[160]:
 
-mydata1.transpose().loc[:,["Andhra Pradesh","Bihar","Delhi"]].plot(kind='pie',subplots=True)
+mydata1.transpose().loc[:,["Uttar Pradesh","Bihar","Goa"]].plot(kind='pie',subplots=True)
 
 
 # In[ ]:
